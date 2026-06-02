@@ -31,21 +31,21 @@ const benefits = [
 const catalogItems = [
   {
     id: "power",
-    image: "/assets/catalog-power-cable.png",
+    image: "assets/catalog-power-cable.png",
     icon: "bolt",
     title: "Силовые кабели",
     text: "Для передачи и распределения электроэнергии в силовых сетях и оборудовании.",
   },
   {
     id: "connect",
-    image: "/assets/catalog-connect-cable.png",
+    image: "assets/catalog-connect-cable.png",
     icon: "link",
     title: "Соединительные кабели",
     text: "Для подключения оборудования и систем управления в промышленных и бытовых решениях.",
   },
   {
     id: "low-current",
-    image: "/assets/catalog-low-cable.png",
+    image: "assets/catalog-low-cable.png",
     icon: "signal",
     title: "Слаботочные кабели",
     text: "Для передачи данных и сигналов в системах связи, безопасности и автоматизации.",
@@ -126,7 +126,7 @@ function Header() {
   return (
     <header className="site-header">
       <a className="logo-link" href="#top" aria-label="Металлобаза Волхонка">
-        <img src="/assets/logo-metallobaza-volhonka.svg" alt="Металлобаза Волхонка" />
+        <img src="assets/logo-metallobaza-volhonka.svg" alt="Металлобаза Волхонка" />
       </a>
 
       <input className="menu-toggle" id="menu-toggle" type="checkbox" aria-label="Открыть меню" />
@@ -172,7 +172,7 @@ function HeroSection() {
         </div>
 
         <div className="hero-media" aria-label="Кабели с разрядом тока">
-          <img src="/assets/hero-cable-discharge.png" alt="Кабели с разрядом тока" />
+          <img src="assets/hero-cable-discharge.png" alt="Кабели с разрядом тока" />
         </div>
       </div>
 
@@ -188,7 +188,7 @@ function HeroSection() {
         </div>
 
         <aside className="hit-card" aria-label="Хит продаж">
-          <img src="/assets/product-cable.jpg" alt="Кабель ВВГнг(А)-LS 3x2,5" />
+          <img src="assets/product-cable.jpg" alt="Кабель ВВГнг(А)-LS 3x2,5" />
           <div>
             <span>Хит продаж</span>
             <h2>Кабель ВВГнг(А)-LS 3x2,5</h2>
