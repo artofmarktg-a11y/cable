@@ -679,7 +679,8 @@ svg {
 
   .catalog-card > img {
     min-height: 0;
-    height: auto;
+    height: 220px;
+    object-fit: cover;
   }
 
   .catalog-card-body {
