@@ -126,7 +126,7 @@ function Header() {
   return (
     <header className="site-header">
       <a className="logo-link" href="#top" aria-label="Металлобаза Волхонка">
-        <img src="/assets/logo-metallobaza-volhonka.png" alt="Металлобаза Волхонка" />
+        <img src="/assets/logo-metallobaza-volhonka.svg" alt="Металлобаза Волхонка" />
       </a>
 
       <input className="menu-toggle" id="menu-toggle" type="checkbox" aria-label="Открыть меню" />
