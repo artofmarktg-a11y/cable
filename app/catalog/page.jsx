@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { catalogProducts } from "./catalog-data";
 
 const navItems = [
@@ -11,6 +11,12 @@ const navItems = [
 ];
 
 const catalogTypes = ["Все кабели", ...Array.from(new Set(catalogProducts.map((product) => product.category)))];
+
+const catalogTypeBySlug = {
+  power: "Силовые кабели",
+  connect: "Соединительные кабели",
+  "low-current": "Слаботочные кабели",
+};
 
 function CatalogHeader() {
   return (
@@ -41,6 +47,19 @@ function CatalogHeader() {
         </a>
       </div>
     </header>
+  );
+}
+
+function RequestIcon() {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M9 4h11l5 5v19H9z" />
+      <path d="M20 4v6h5" />
+      <path d="M13 15h8" />
+      <path d="M13 20h6" />
+      <circle cx="23" cy="23" r="4" />
+      <path d="m26 26 3 3" />
+    </svg>
   );
 }
 
@@ -130,6 +149,16 @@ export default function CatalogPage() {
   const [selectedSection, setSelectedSection] = useState("");
   const [activeType, setActiveType] = useState(catalogTypes[0]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedType = params.get("type");
+    const nextType = catalogTypeBySlug[requestedType] || catalogTypes.find((type) => type === requestedType);
+
+    if (nextType) {
+      setActiveType(nextType);
+    }
+  }, []);
+
   const filteredProducts =
     activeType === catalogTypes[0] ? catalogProducts : catalogProducts.filter((product) => product.category === activeType);
 
@@ -178,6 +207,22 @@ export default function CatalogPage() {
                 <small>Подробнее</small>
               </button>
             ))}
+          </div>
+
+          <div className="catalog-cta" id="request">
+            <RequestIcon />
+            <div>
+              <h3>Не нашли нужный кабель?</h3>
+              <p>
+                Если вы не нашли нужный кабель на сайте - отправьте заявку и мы подберем нужную позицию по вашим параметрам.
+              </p>
+              <p>
+                Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
+              </p>
+            </div>
+            <a className="primary-button compact" href="mailto:komarov.pv@metallobazav.ru">
+              Нет нужного кабеля
+            </a>
           </div>
         </div>
       </section>

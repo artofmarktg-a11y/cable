@@ -31,6 +31,7 @@ const benefits = [
 const catalogItems = [
   {
     id: "power",
+    href: "catalog?type=power",
     image: "assets/catalog-power-cable.png",
     icon: "bolt",
     title: "Силовые кабели",
@@ -38,6 +39,7 @@ const catalogItems = [
   },
   {
     id: "connect",
+    href: "catalog?type=connect",
     image: "assets/catalog-connect-cable.png",
     icon: "link",
     title: "Соединительные кабели",
@@ -45,6 +47,7 @@ const catalogItems = [
   },
   {
     id: "low-current",
+    href: "catalog?type=low-current",
     image: "assets/catalog-low-cable.png",
     icon: "signal",
     title: "Слаботочные кабели",
@@ -355,7 +358,7 @@ function CatalogSection() {
 
         <div className="catalog-grid">
           {catalogItems.map((item) => (
-            <article className="catalog-card" id={item.id} key={item.id}>
+            <a className="catalog-card" id={item.id} href={item.href} key={item.id}>
               <img src={item.image} alt={item.title} />
               <div className="catalog-card-body">
                 <Icon name={item.icon} />
@@ -363,11 +366,11 @@ function CatalogSection() {
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </div>
-                <a href="#request" aria-label={`Оставить заявку: ${item.title}`}>
+                <span className="catalog-card-arrow" aria-hidden="true">
                   →
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 
@@ -383,7 +386,7 @@ function CatalogSection() {
             </p>
           </div>
           <a className="primary-button compact" href="mailto:komarov.pv@metallobazav.ru">
-            Не нашел нужный кабель
+            Нет нужного кабеля
           </a>
         </div>
       </div>

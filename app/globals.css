@@ -411,7 +411,7 @@ svg {
 }
 
 .hit-card a,
-.catalog-card a {
+.catalog-card-arrow {
   color: var(--blue);
   font-weight: 800;
 }
@@ -672,7 +672,10 @@ svg {
 }
 
 .catalog-card {
+  display: block;
   overflow: hidden;
+  color: inherit;
+  text-decoration: none;
 }
 
 .catalog-card > img {
@@ -710,7 +713,7 @@ svg {
   line-height: 1.25;
 }
 
-.catalog-card a {
+.catalog-card-arrow {
   align-self: end;
   font-size: 30px;
   line-height: 1;
@@ -1373,7 +1376,7 @@ svg {
     grid-template-columns: 56px 1fr;
   }
 
-  .catalog-card a {
+  .catalog-card-arrow {
     grid-column: 2;
     justify-self: end;
   }
