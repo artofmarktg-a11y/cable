@@ -340,12 +340,17 @@ function CatalogSection() {
   return (
     <section className="catalog-section" id="catalog" aria-labelledby="catalog-title">
       <div className="section-shell">
-        <div className="section-heading">
-          <h2 id="catalog-title">Каталог кабельной продукции</h2>
-          <p>
-            В наличии и под заказ широкий ассортимент силовых, соединительных и слаботочных
-            кабелей для любых задач.
-          </p>
+        <div className="catalog-heading-row">
+          <div className="section-heading">
+            <h2 id="catalog-title">Каталог кабельной продукции</h2>
+            <p>
+              В наличии и под заказ широкий ассортимент силовых, соединительных и слаботочных
+              кабелей для любых задач.
+            </p>
+          </div>
+          <a className="primary-button catalog-assortment-button" href="catalog">
+            Смотреть весь ассортимент
+          </a>
         </div>
 
         <div className="catalog-grid">
@@ -366,20 +371,19 @@ function CatalogSection() {
           ))}
         </div>
 
-        <div className="catalog-more">
-          <a className="primary-button" href="#request">
-            Смотреть весь ассортимент
-          </a>
-        </div>
-
         <div className="catalog-cta" id="request">
           <Icon name="doc" />
           <div>
             <h3>Не нашли нужный кабель?</h3>
-            <p>Оставьте заявку, подберём оптимальное решение под ваши задачи и рассчитаем стоимость.</p>
+            <p>
+              Если вы не нашли нужный кабель на сайте - отправьте заявку и мы подберем нужную позицию по вашим параметрам.
+            </p>
+            <p>
+              Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
+            </p>
           </div>
           <a className="primary-button compact" href="mailto:komarov.pv@metallobazav.ru">
-            Получить расчёт
+            Не нашел нужный кабель
           </a>
         </div>
       </div>
