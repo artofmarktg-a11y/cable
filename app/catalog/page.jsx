@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { catalogProducts } from "./catalog-data";
 
 const navItems = [
-  { href: "../#top", label: "Главная" },
-  { href: "../#about", label: "О компании" },
-  { href: "../#tasks", label: "Задачи" },
-  { href: "../#contacts", label: "Контакты" },
+  { href: "/catalog?type=power", label: "Силовые" },
+  { href: "/catalog?type=connect", label: "Соединительные" },
+  { href: "/catalog?type=low-current", label: "Слаботочные" },
+  { href: "/#contacts", label: "Контакты" },
 ];
 
 const catalogTypes = ["Все кабели", ...Array.from(new Set(catalogProducts.map((product) => product.category)))];
