@@ -616,8 +616,11 @@ svg {
 }
 
 .advantage-card h3 {
+  min-height: 60px;
+  display: grid;
+  align-content: start;
   margin: 0 0 22px;
-  font-size: clamp(22px, 1.55vw, 28px);
+  font-size: clamp(21px, 1.35vw, 24px);
   font-weight: 700;
   line-height: 1.25;
 }
@@ -627,11 +630,6 @@ svg {
   color: var(--muted);
   font-size: clamp(16px, 1.06vw, 19px);
   line-height: 1.58;
-}
-
-.advantage-card strong {
-  color: var(--text);
-  font-weight: 800;
 }
 
 .responsibility-heading {
