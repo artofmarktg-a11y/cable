@@ -727,6 +727,9 @@ svg {
 }
 
 .audience-card h3 {
+  min-height: 58px;
+  display: grid;
+  align-content: start;
   margin: 0 0 18px;
   font-size: clamp(19px, 1.22vw, 23px);
   font-weight: 700;
@@ -809,7 +812,7 @@ svg {
   margin: 0;
   color: var(--text);
   font-size: clamp(18px, 1.18vw, 22px);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.55;
 }
 
