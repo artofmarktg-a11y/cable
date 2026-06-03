@@ -156,7 +156,7 @@ const responsibilityItems = [
 
 const audienceItems = [
   {
-    icon: "construction",
+    icon: "/assets/audience/construction.png",
     title: "Строительные организации",
     points: [
       "Подбор кабельной продукции строго под проект и ТЗ.",
@@ -167,7 +167,7 @@ const audienceItems = [
     ],
   },
   {
-    icon: "warehouse",
+    icon: "/assets/audience/warehouse.png",
     title: "Торгующие организации",
     points: [
       "Широкий ассортимент для перепродажи.",
@@ -178,7 +178,7 @@ const audienceItems = [
     ],
   },
   {
-    icon: "factory",
+    icon: "/assets/audience/factory.png",
     title: "Промышленные компании и заводы",
     points: [
       "Подбор кабеля под конкретные условия эксплуатации.",
@@ -189,7 +189,7 @@ const audienceItems = [
     ],
   },
   {
-    icon: "private-client",
+    icon: "/assets/audience/private-client.png",
     title: "ИП и частные лица",
     points: [
       "Помощь в выборе без сложной технической терминологии.",
@@ -198,6 +198,25 @@ const audienceItems = [
       "Доступ к ассортименту, как у профессионалов.",
       "Консультация перед покупкой.",
     ],
+  },
+];
+
+const orderSteps = [
+  {
+    number: "1",
+    text: "Вы отправляете заявку на сайте любым удобным для вас способом. Форма заказа, телефон или почта.",
+  },
+  {
+    number: "2",
+    text: "Через несколько минут мы вернемся к вам, чтобы уточнить детали и подбираем нужную кабельную продукцию.",
+  },
+  {
+    number: "3",
+    text: "Готовим предложение по подходящим вам позициям.",
+  },
+  {
+    number: "4",
+    text: "Оформляем необходимые для оплаты и поставки документы. Согласовываем удобное время и сроки доставки.",
   },
 ];
 
@@ -260,50 +279,6 @@ function Icon({ name }) {
         <path d="M19 3v6h5" />
         <path d="M12 15h8" />
         <path d="M12 20h8" />
-      </>
-    ),
-    construction: (
-      <>
-        <path d="M5 26h22" />
-        <path d="M7 26V12h8v14" />
-        <path d="M15 26V16h6v10" />
-        <path d="M9 16h2" />
-        <path d="M9 20h2" />
-        <path d="M15 8h12" />
-        <path d="M15 8 24 4l3 4" />
-        <path d="M23 8v7" />
-        <path d="M21 15h4v4h-4z" />
-      </>
-    ),
-    warehouse: (
-      <>
-        <path d="M5 14 16 5l11 9" />
-        <path d="M8 12v15h16V12" />
-        <path d="M12 27v-8h8v8" />
-        <path d="M12 15h8" />
-        <path d="M13 20h2" />
-        <path d="M17 20h2" />
-        <path d="M22 24h5" />
-        <path d="M25 21v6" />
-      </>
-    ),
-    factory: (
-      <>
-        <path d="M5 27V16l7-4v5l7-5v15" />
-        <path d="M19 17h8v10H5" />
-        <path d="M9 21h3" />
-        <path d="M15 21h3" />
-        <path d="M22 21h2" />
-        <path d="M9 10V5h4v3" />
-        <path d="M20 10V5h4v7" />
-      </>
-    ),
-    "private-client": (
-      <>
-        <path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" />
-        <path d="M8 28v-4a8 8 0 0 1 16 0v4" />
-        <path d="M21 19h7v7h-7z" />
-        <path d="M24 19v-3" />
       </>
     ),
   };
@@ -477,7 +452,11 @@ function AudienceSection() {
         <div className="audience-grid">
           {audienceItems.map((item) => (
             <article className="audience-card" key={item.title}>
-              <Icon name={item.icon} />
+              <span
+                className="audience-icon"
+                style={{ "--audience-icon": `url(${item.icon})` }}
+                aria-hidden="true"
+              />
               <h3>{item.title}</h3>
               <ul>
                 {item.points.map((point) => (
@@ -487,6 +466,70 @@ function AudienceSection() {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function OrderSection() {
+  return (
+    <section className="order-section" id="order" aria-labelledby="order-title">
+      <div className="section-shell">
+        <div className="section-heading order-heading">
+          <h2 id="order-title">Как сделать заказ?</h2>
+        </div>
+
+        <div className="order-grid">
+          {orderSteps.map((item) => (
+            <article className="order-step" key={item.number}>
+              <span className="order-step-number" aria-hidden="true">
+                {item.number}
+              </span>
+              <span className="order-step-label">Шаг</span>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RequestSection() {
+  return (
+    <section className="request-section" aria-labelledby="request-title">
+      <div className="section-shell request-grid">
+        <div className="request-copy">
+          <h2 id="request-title">
+            Мы не ограничиваемся каталогом и не продаем «что есть» — мы подбираем кабель под вашу задачу.
+          </h2>
+        </div>
+
+        <form
+          className="request-form"
+          action="mailto:komarov.pv@metallobazav.ru"
+          method="post"
+          encType="text/plain"
+        >
+          <label>
+            <span>Имя</span>
+            <input type="text" name="Имя" autoComplete="name" required />
+          </label>
+
+          <label>
+            <span>Телефон</span>
+            <input type="tel" name="Телефон" autoComplete="tel" required />
+          </label>
+
+          <label>
+            <span>Описание задачи</span>
+            <textarea name="Описание задачи" rows="6" required />
+          </label>
+
+          <button className="primary-button" type="submit">
+            Отправить заявку
+          </button>
+        </form>
       </div>
     </section>
   );
@@ -640,6 +683,8 @@ export default function HomePage() {
       <AdvantagesSection />
       <ResponsibilitySection />
       <AudienceSection />
+      <OrderSection />
+      <RequestSection />
       <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
     </main>
   );
