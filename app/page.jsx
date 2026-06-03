@@ -52,6 +52,48 @@ const catalogItems = [
   },
 ];
 
+const manufacturers = [
+  { name: "Конкорд", logo: "assets/manufacturers/concord.svg" },
+  { name: "Кабэкс", logo: "assets/manufacturers/kabex.svg" },
+  { name: "Ивановский кабельный завод", logo: "assets/manufacturers/ivanovo.svg" },
+  { name: "Альфакабель", logo: "assets/manufacturers/alpha-cable.svg" },
+  { name: "Кабельный завод Цветлит", logo: "assets/manufacturers/cvetlit.svg" },
+  { name: "PROconnect", logo: "assets/manufacturers/proconnect.svg" },
+];
+
+const taskTabs = [
+  {
+    id: "task-power",
+    key: "power",
+    tab: "Передать энергию",
+    title: "Передать энергию для питания объектов.",
+    type: "Силовые",
+    image: "assets/tasks/power-cable.png",
+    text: "Используются для питания объектов, оборудования и инженерных систем. Подходят для строительных площадок, производств, коммерческих и жилых зданий.",
+    note: "Надёжная основа для стабильной работы - от небольших объектов до крупных проектов.",
+  },
+  {
+    id: "task-connect",
+    key: "connect",
+    tab: "Связать оборудование",
+    title: "Связать оборудование в единую систему.",
+    type: "Соединительные",
+    image: "assets/tasks/connect-cable.png",
+    text: "Обеспечивают корректное подключение техники, узлов и инженерных решений. Используются в промышленности, автоматике, машиностроении и при монтаже оборудования.",
+    note: "Когда важно, чтобы всё работало без сбоев и «с первого подключения».",
+  },
+  {
+    id: "task-low-current",
+    key: "low-current",
+    tab: "Отправить данные",
+    title: "Отправить данные и обеспечить связь.",
+    type: "Слаботочные",
+    image: "assets/tasks/low-current-cable.png",
+    text: "Применяются в системах видеонаблюдения, сигнализации, интернете, связи и телекоммуникациях.",
+    note: "Основа для современных систем управления, безопасности и коммуникации.",
+  },
+];
+
 function Icon({ name }) {
   const common = {
     viewBox: "0 0 32 32",
@@ -119,6 +161,95 @@ function Icon({ name }) {
     <svg {...common}>
       {paths[name]}
     </svg>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section className="about-section" id="about" aria-labelledby="about-title">
+      <div className="section-shell">
+        <div className="about-header">
+          <img src="assets/logo-metallobaza-volhonka.svg" alt="Металлобаза Волхонка" />
+          <div className="section-heading">
+            <h2 id="about-title">О компании</h2>
+            <p>Новое направление продаж кабельной продукции от Металлобазы Волхонка.</p>
+          </div>
+        </div>
+
+        <div className="about-card">
+          <p className="about-lead">
+            Металлобаза Волхонка с 2018 года осуществляющая поставки металлопроката и строительных материалов запускает новое направление своей деятельности - продажи кабельной продукции.
+          </p>
+          <p>
+            Мы постоянно расширяем свой ассортимент и рады предложить нашим клиентам широкий выбор силовых, соединительных и слаботочных кабелей от старейших заводов нашей страны. Теперь в "Металлобазе Волхонка" вы можете заказать не только металлопрокат и строительные материалы, но и кабельную продукцию для строительных, промышленных и инженерных задач.
+          </p>
+        </div>
+
+        <div className="manufacturer-panel">
+          <h3>Мы работаем с ведущими российскими производителями</h3>
+          <div className="manufacturer-grid">
+            {manufacturers.map((item) => (
+              <article className="manufacturer-card" key={item.name}>
+                <img src={item.logo} alt={item.name} />
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TaskSection() {
+  return (
+    <section className="task-section" id="tasks" aria-labelledby="tasks-title">
+      <div className="section-shell">
+        <div className="section-heading">
+          <h2 id="tasks-title">Кабели под ваши задачи</h2>
+          <p>Подберите тип кабеля по тому, какую задачу нужно решить на объекте.</p>
+        </div>
+
+        <div className="task-tabs-wrap">
+          {taskTabs.map((item, index) => (
+            <input
+              className="task-radio"
+              type="radio"
+              name="cable-task"
+              id={item.id}
+              defaultChecked={index === 0}
+              key={item.id}
+            />
+          ))}
+
+          <div className="task-tabs" role="tablist" aria-label="Задачи для кабелей">
+            {taskTabs.map((item) => (
+              <label className={`task-tab ${item.key}`} htmlFor={item.id} key={item.id}>
+                {item.tab}
+              </label>
+            ))}
+          </div>
+
+          <div className="task-panels">
+            {taskTabs.map((item) => (
+              <article className={`task-panel ${item.key}`} key={item.id}>
+                <div className="task-copy">
+                  <span>{item.type}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <strong>{item.note}</strong>
+                  <a className="primary-button task-button" href="mailto:komarov.pv@metallobazav.ru">
+                    Получить консультацию
+                  </a>
+                </div>
+                <div className="task-image">
+                  <img src={item.image} alt={`${item.type} кабель`} />
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -235,6 +366,12 @@ function CatalogSection() {
           ))}
         </div>
 
+        <div className="catalog-more">
+          <a className="primary-button" href="#request">
+            Смотреть весь ассортимент
+          </a>
+        </div>
+
         <div className="catalog-cta" id="request">
           <Icon name="doc" />
           <div>
@@ -254,6 +391,8 @@ export default function HomePage() {
   return (
     <main className="site-page">
       <HeroSection />
+      <AboutSection />
+      <TaskSection />
       <CatalogSection />
       <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
     </main>
