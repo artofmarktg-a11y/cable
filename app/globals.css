@@ -717,15 +717,32 @@ svg {
 }
 
 .catalog-cta {
-  width: min(760px, 100%);
-  margin: 36px auto 0;
+  width: 100%;
+  margin: 30px 0 0;
   display: grid;
-  grid-template-columns: 70px 1fr auto;
-  gap: 22px;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 18px;
   align-items: center;
-  padding: 22px 24px;
+  padding: 18px 22px;
   background: var(--panel-strong);
   min-width: 0;
+}
+
+.catalog-cta > div {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(210px, 0.42fr) minmax(0, 1fr);
+  gap: 6px 22px;
+  align-items: center;
+}
+
+.catalog-cta h3 {
+  grid-row: 1 / span 2;
+  margin: 0;
+}
+
+.catalog-cta p + p {
+  margin-top: 0;
 }
 
 .contacts-anchor {
@@ -1363,6 +1380,18 @@ svg {
 
   .catalog-cta .primary-button {
     width: 100%;
+  }
+
+  .catalog-cta > div {
+    display: block;
+  }
+
+  .catalog-cta h3 {
+    margin-bottom: 12px;
+  }
+
+  .catalog-cta p + p {
+    margin-top: 10px;
   }
 
   .catalog-assortment-button {

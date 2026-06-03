@@ -206,7 +206,7 @@ function TaskSection() {
       <div className="section-shell">
         <div className="section-heading">
           <h2 id="tasks-title">Кабели под ваши задачи</h2>
-          <p>Подберите тип кабеля по тому, какую задачу нужно решить на объекте.</p>
+          <p>Выберите тип задачи, которую нужно решить на объекте.</p>
         </div>
 
         <div className="task-tabs-wrap">
