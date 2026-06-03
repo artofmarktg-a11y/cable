@@ -59,6 +59,7 @@ img {
 .audience-section,
 .order-section,
 .request-section,
+.contacts-section,
 .catalog-section {
   position: relative;
   overflow: hidden;
@@ -133,6 +134,14 @@ img {
     linear-gradient(180deg, #020712 0%, #031226 100%);
 }
 
+.contacts-section {
+  padding: 82px 0 96px;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(255, 196, 0, 0.08), transparent 26%),
+    radial-gradient(circle at 82% 44%, rgba(17, 184, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, #031226 0%, #02060d 100%);
+}
+
 .hero-section::before,
 .about-section::before,
 .task-section::before,
@@ -141,6 +150,7 @@ img {
 .audience-section::before,
 .order-section::before,
 .request-section::before,
+.contacts-section::before,
 .catalog-section::before {
   position: absolute;
   inset: 0;
@@ -377,6 +387,8 @@ svg {
 .audience-card,
 .order-step,
 .request-form,
+.contact-card,
+.contact-map-card,
 .task-tabs-wrap {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -903,6 +915,97 @@ svg {
   font: inherit;
 }
 
+.contacts-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.72fr) minmax(520px, 1.18fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.contact-card {
+  padding: clamp(28px, 3.2vw, 48px);
+  background:
+    radial-gradient(circle at 16% 14%, rgba(17, 184, 255, 0.14), transparent 36%),
+    var(--panel-strong);
+}
+
+.contact-eyebrow {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--blue);
+  font-size: clamp(18px, 1.2vw, 22px);
+  font-weight: 700;
+}
+
+.contact-card h2 {
+  max-width: 620px;
+  margin: 0;
+  font-family: "Arial Narrow", "Segoe UI Condensed", Arial, sans-serif;
+  font-size: clamp(34px, 3vw, 52px);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: 0;
+  text-shadow: 0 8px 34px rgba(0, 0, 0, 0.62);
+}
+
+.contact-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.contact-link,
+.contact-list address {
+  color: var(--text);
+  font-size: clamp(20px, 1.4vw, 26px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.38;
+}
+
+.contact-link {
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--button-blue);
+}
+
+.contact-mail {
+  color: var(--blue);
+}
+
+.contact-list address span {
+  display: block;
+  margin-top: 6px;
+}
+
+.contact-route-button {
+  margin-top: 36px;
+  min-height: 54px;
+}
+
+.contact-map-card {
+  min-height: 500px;
+  padding: 8px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 10%, rgba(17, 184, 255, 0.12), transparent 34%),
+    var(--panel-strong);
+}
+
+.contact-map-card iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 484px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .task-tabs-wrap {
   position: relative;
   margin-top: 42px;
@@ -1120,13 +1223,6 @@ svg {
 
 .catalog-cta p + p {
   margin-top: 0;
-}
-
-.contacts-anchor {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
 }
 
 .catalog-page {
@@ -1501,6 +1597,11 @@ svg {
     align-items: start;
   }
 
+  .contacts-grid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
   .audience-card {
     min-height: 390px;
   }
@@ -1683,6 +1784,7 @@ svg {
   .audience-section,
   .order-section,
   .request-section,
+  .contacts-section,
   .catalog-section {
     padding: 58px 0;
   }
@@ -1826,6 +1928,38 @@ svg {
 
   .request-form {
     padding: 20px;
+  }
+
+  .contact-card {
+    padding: 26px 22px;
+  }
+
+  .contact-card h2 {
+    font-size: 34px;
+  }
+
+  .contact-list {
+    margin-top: 28px;
+  }
+
+  .contact-link,
+  .contact-list address {
+    font-size: 19px;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-route-button {
+    width: 100%;
+    margin-top: 28px;
+  }
+
+  .contact-map-card {
+    min-height: 360px;
+    padding: 6px;
+  }
+
+  .contact-map-card iframe {
+    min-height: 348px;
   }
 
   .hero-grid {

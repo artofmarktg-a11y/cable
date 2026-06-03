@@ -594,6 +594,50 @@ function RequestSection() {
   );
 }
 
+function ContactsSection() {
+  const address = "Санкт-Петербург, ул. Зольная, д.15, БЦ Морская столица";
+  const encodedAddress = encodeURIComponent(address);
+  const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${encodedAddress}&z=16`;
+  const routeHref = `https://yandex.ru/maps/?mode=search&text=${encodedAddress}`;
+
+  return (
+    <section className="contacts-section" id="contacts" aria-labelledby="contacts-title">
+      <div className="section-shell contacts-grid">
+        <div className="contact-card">
+          <span className="contact-eyebrow">Контакты</span>
+          <h2 id="contacts-title">«Металлобаза Волхонка»</h2>
+
+          <div className="contact-list">
+            <a className="contact-link contact-phone" href="tel:+79218887782">
+              +7 (921) 888 77 82
+            </a>
+            <a className="contact-link contact-mail" href="mailto:komarov.pv@metallobazav.ru">
+              komarov.pv@metallobazav.ru
+            </a>
+            <address>
+              Санкт-Петербург, ул. Зольная, д.15
+              <span>БЦ «Морская столица»</span>
+            </address>
+          </div>
+
+          <a className="primary-button contact-route-button" href={routeHref} target="_blank" rel="noreferrer">
+            Открыть маршрут
+          </a>
+        </div>
+
+        <div className="contact-map-card">
+          <iframe
+            src={mapSrc}
+            title="Карта проезда к Металлобазе Волхонка"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Header() {
   return (
     <header className="site-header">
@@ -744,7 +788,7 @@ export default function HomePage() {
       <AudienceSection />
       <OrderSection />
       <RequestSection />
-      <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
+      <ContactsSection />
     </main>
   );
 }
