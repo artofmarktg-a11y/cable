@@ -1,3 +1,5 @@
+"use client";
+
 const navItems = [
   { href: "#power", label: "Силовые" },
   { href: "#connect", label: "Соединительные" },
@@ -222,6 +224,49 @@ const orderSteps = [
     text: "Оформляем необходимые для оплаты и поставки документы. Согласовываем удобное время и сроки доставки.",
   },
 ];
+
+function formatPhoneNumber(value) {
+  let digits = value.replace(/\D/g, "");
+
+  if (digits.startsWith("8")) {
+    digits = `7${digits.slice(1)}`;
+  }
+
+  if (digits.startsWith("7")) {
+    digits = digits.slice(1);
+  }
+
+  digits = digits.slice(0, 10);
+
+  const area = digits.slice(0, 3);
+  const first = digits.slice(3, 6);
+  const second = digits.slice(6, 8);
+  const third = digits.slice(8, 10);
+
+  let result = "+7";
+
+  if (area) {
+    result += ` (${area}`;
+  }
+
+  if (area.length === 3) {
+    result += ")";
+  }
+
+  if (first) {
+    result += ` ${first}`;
+  }
+
+  if (second) {
+    result += `-${second}`;
+  }
+
+  if (third) {
+    result += `-${third}`;
+  }
+
+  return result;
+}
 
 function Icon({ name }) {
   const common = {
@@ -519,12 +564,22 @@ function RequestSection() {
 
           <label>
             <span>Телефон</span>
-            <input type="tel" name="Телефон" autoComplete="tel" required />
+            <input
+              type="tel"
+              name="Телефон"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder="+7 (___) ___-__-__"
+              onInput={(event) => {
+                event.currentTarget.value = formatPhoneNumber(event.currentTarget.value);
+              }}
+              required
+            />
           </label>
 
           <label>
             <span>Описание задачи</span>
-            <textarea name="Описание задачи" rows="6" required />
+            <textarea name="Описание задачи" rows="5" placeholder="Расскажите про ваш проект" required />
           </label>
 
           <button className="primary-button" type="submit">
