@@ -97,6 +97,26 @@ const taskTabs = [
   },
 ];
 
+const advantages = [
+  {
+    title: "Консультация опытных специалистов",
+    text: "Наши менеджеры с большим опытом работы с кабельной продукцией, помогут подобрать оптимальное решение с учётом технических требований, условий эксплуатации и задач проекта.",
+  },
+  {
+    title: "Обработка заявки до 30 минут",
+    text: "Отдел продаж, насчитывающий более 40 сотрудников, не оставит вашу заявку без внимания. Мы гарантируем оперативную обработку заявок и быстрый расчёт.",
+  },
+  {
+    title: "Собственная служба доставки",
+    text: "Собственная служба доставки из автомобилей грузоподъемностью от 1.5 до 20 тонн, гарантирует вам поставку материалов на объект в кратчайшие сроки.",
+  },
+  {
+    title: "Прямые поставки от производителей",
+    accent: "позволяют предлагать стабильные поставки и выгодные условия.",
+    text: "Все что вам может понадобиться для строительства и ремонта, скорее всего уже есть у нас",
+  },
+];
+
 function Icon({ name }) {
   const common = {
     viewBox: "0 0 32 32",
@@ -256,6 +276,35 @@ function TaskSection() {
   );
 }
 
+function AdvantagesSection() {
+  return (
+    <section className="advantages-section" id="advantages" aria-labelledby="advantages-title">
+      <div className="section-shell">
+        <div className="section-heading advantages-heading">
+          <h2 id="advantages-title">Наши преимущества</h2>
+          <p>Вы получаете не просто кабель, а оперативное решение вашей задачи</p>
+        </div>
+
+        <div className="advantages-grid">
+          {advantages.map((item) => (
+            <article className="advantage-card" key={item.title}>
+              <Icon name="bolt" />
+              <h3>{item.title}</h3>
+              {item.accent ? (
+                <p>
+                  <strong>{item.accent}</strong> {item.text}
+                </p>
+              ) : (
+                <p>{item.text}</p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Header() {
   return (
     <header className="site-header">
@@ -400,6 +449,7 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <TaskSection />
+      <AdvantagesSection />
       <CatalogSection />
       <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
     </main>

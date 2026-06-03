@@ -54,6 +54,7 @@ img {
 .hero-section,
 .about-section,
 .task-section,
+.advantages-section,
 .catalog-section {
   position: relative;
   overflow: hidden;
@@ -88,9 +89,18 @@ img {
     linear-gradient(180deg, #031226 0%, #020712 100%);
 }
 
+.advantages-section {
+  padding: 78px 0 82px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(13, 73, 203, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 56%, rgba(17, 184, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #020712 0%, #031226 100%);
+}
+
 .hero-section::before,
 .about-section::before,
 .task-section::before,
+.advantages-section::before,
 .catalog-section::before {
   position: absolute;
   inset: 0;
@@ -322,6 +332,7 @@ svg {
 .catalog-cta,
 .about-card,
 .manufacturer-card,
+.advantage-card,
 .task-tabs-wrap {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -527,6 +538,62 @@ svg {
   max-height: 72px;
   object-fit: contain;
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+}
+
+.advantages-heading {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.advantages-heading p {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 70px;
+}
+
+.advantage-card {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 34px 30px 32px;
+  background:
+    radial-gradient(circle at 28% 12%, rgba(17, 184, 255, 0.13), transparent 34%),
+    var(--panel);
+}
+
+.advantage-card svg {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 34px;
+  color: var(--yellow);
+  fill: var(--yellow);
+  filter: drop-shadow(0 0 18px rgba(255, 195, 0, 0.24));
+}
+
+.advantage-card h3 {
+  margin: 0 0 22px;
+  font-size: clamp(22px, 1.55vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.advantage-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(16px, 1.06vw, 19px);
+  line-height: 1.58;
+}
+
+.advantage-card strong {
+  color: var(--text);
+  font-weight: 800;
 }
 
 .task-tabs-wrap {
@@ -1102,6 +1169,15 @@ svg {
     grid-template-columns: 1fr;
   }
 
+  .advantages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 48px;
+  }
+
+  .advantage-card {
+    min-height: 340px;
+  }
+
   .task-image {
     min-height: 320px;
   }
@@ -1267,6 +1343,7 @@ svg {
 
   .about-section,
   .task-section,
+  .advantages-section,
   .catalog-section {
     padding: 58px 0;
   }
@@ -1323,6 +1400,23 @@ svg {
   .task-image img {
     width: min(520px, 112%);
     max-height: 300px;
+  }
+
+  .advantages-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 34px;
+  }
+
+  .advantage-card {
+    min-height: 0;
+    padding: 26px 22px;
+  }
+
+  .advantage-card svg {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 22px;
   }
 
   .hero-grid {
