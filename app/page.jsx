@@ -154,6 +154,53 @@ const responsibilityItems = [
   },
 ];
 
+const audienceItems = [
+  {
+    icon: "construction",
+    title: "Строительные организации",
+    points: [
+      "Подбор кабельной продукции строго под проект и ТЗ.",
+      "Возможность закрыть крупные объёмы в сжатые сроки.",
+      "Поставка позиций, которых нет в открытом каталоге.",
+      "Снижение рисков ошибок при закупке.",
+      "Комплексные поставки вместе с другими материалами.",
+    ],
+  },
+  {
+    icon: "warehouse",
+    title: "Торгующие организации",
+    points: [
+      "Широкий ассортимент для перепродажи.",
+      "Возможность быстро получить востребованные позиции.",
+      "Гибкость по объёмам закупки.",
+      "Подбор альтернативных решений под запрос клиента.",
+      "Стабильные поставки без «провалов» по наличию.",
+    ],
+  },
+  {
+    icon: "factory",
+    title: "Промышленные компании и заводы",
+    points: [
+      "Подбор кабеля под конкретные условия эксплуатации.",
+      "Работа с нестандартными и специфическими запросами.",
+      "Поставка продукции с требуемыми характеристиками.",
+      "Надёжные решения для бесперебойной работы оборудования.",
+      "Возможность регулярных поставок.",
+    ],
+  },
+  {
+    icon: "private-client",
+    title: "ИП и частные лица",
+    points: [
+      "Помощь в выборе без сложной технической терминологии.",
+      "Возможность купить небольшие объёмы.",
+      "Подбор оптимального варианта по цене и задаче.",
+      "Доступ к ассортименту, как у профессионалов.",
+      "Консультация перед покупкой.",
+    ],
+  },
+];
+
 function Icon({ name }) {
   const common = {
     viewBox: "0 0 32 32",
@@ -213,6 +260,50 @@ function Icon({ name }) {
         <path d="M19 3v6h5" />
         <path d="M12 15h8" />
         <path d="M12 20h8" />
+      </>
+    ),
+    construction: (
+      <>
+        <path d="M5 26h22" />
+        <path d="M7 26V12h8v14" />
+        <path d="M15 26V16h6v10" />
+        <path d="M9 16h2" />
+        <path d="M9 20h2" />
+        <path d="M15 8h12" />
+        <path d="M15 8 24 4l3 4" />
+        <path d="M23 8v7" />
+        <path d="M21 15h4v4h-4z" />
+      </>
+    ),
+    warehouse: (
+      <>
+        <path d="M5 14 16 5l11 9" />
+        <path d="M8 12v15h16V12" />
+        <path d="M12 27v-8h8v8" />
+        <path d="M12 15h8" />
+        <path d="M13 20h2" />
+        <path d="M17 20h2" />
+        <path d="M22 24h5" />
+        <path d="M25 21v6" />
+      </>
+    ),
+    factory: (
+      <>
+        <path d="M5 27V16l7-4v5l7-5v15" />
+        <path d="M19 17h8v10H5" />
+        <path d="M9 21h3" />
+        <path d="M15 21h3" />
+        <path d="M22 21h2" />
+        <path d="M9 10V5h4v3" />
+        <path d="M20 10V5h4v7" />
+      </>
+    ),
+    "private-client": (
+      <>
+        <path d="M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" />
+        <path d="M8 28v-4a8 8 0 0 1 16 0v4" />
+        <path d="M21 19h7v7h-7z" />
+        <path d="M24 19v-3" />
       </>
     ),
   };
@@ -372,6 +463,35 @@ function ResponsibilitySection() {
   );
 }
 
+function AudienceSection() {
+  return (
+    <section className="audience-section" id="audience" aria-labelledby="audience-title">
+      <div className="section-shell">
+        <div className="section-heading audience-heading">
+          <h2 id="audience-title">С кем работаем</h2>
+          <p>
+            Поставляем кабельную продукцию под любые задачи и объёмы — от единичных закупок до комплексных поставок.
+          </p>
+        </div>
+
+        <div className="audience-grid">
+          {audienceItems.map((item) => (
+            <article className="audience-card" key={item.title}>
+              <Icon name={item.icon} />
+              <h3>{item.title}</h3>
+              <ul>
+                {item.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Header() {
   return (
     <header className="site-header">
@@ -519,6 +639,7 @@ export default function HomePage() {
       <CatalogSection />
       <AdvantagesSection />
       <ResponsibilitySection />
+      <AudienceSection />
       <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
     </main>
   );
