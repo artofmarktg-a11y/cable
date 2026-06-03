@@ -117,6 +117,43 @@ const advantages = [
   },
 ];
 
+const responsibilityItems = [
+  {
+    title: "Чтобы кабель «подошел с первого раза»",
+    lead: "Следим за соответствием техническим требованиям",
+    points: ["нужное сечение и марка кабеля", "условиям эксплуатации и температуры", "соответствие проекту и ТЗ"],
+  },
+  {
+    title: "Устали бегать по разным поставщикам",
+    lead: "Ищем возможность закрыть всю вашу заявку",
+    points: [
+      "консультация опытных специалистов",
+      "подбор аналогов или альтернатив",
+      "с вас проблема - с нас решение",
+    ],
+  },
+  {
+    title: "Чтобы не было аварий и переделок на объекте",
+    lead: "Обеспечиваем надежность и качество продукции",
+    points: ["соответствие ГОСТ и наличие сертификатов", "реальные характеристики, а не «на бумаге»", "только проверенные производители"],
+  },
+  {
+    title: "Вам важно получить решение, а не отказ",
+    lead: "Работаем с нестандартными запросами",
+    points: ["редкие позиции", "специфические характеристики", "индивидуальные заявки"],
+  },
+  {
+    title: "Сорванные сроки работ",
+    lead: "Знаем, что все доставки должны приехать вовремя",
+    points: ["имеем собственный грузовой автопарк", "оперативно осуществляем догруз", "обеспечиваем возможность срочной доставки"],
+  },
+  {
+    title: "Проблемы с проверками и сдачей объекта",
+    lead: "Внимательно и оперативно готовим документы",
+    points: ["сертификаты", "паспорта продукции", "закрывающие документы"],
+  },
+];
+
 function Icon({ name }) {
   const common = {
     viewBox: "0 0 32 32",
@@ -305,6 +342,36 @@ function AdvantagesSection() {
   );
 }
 
+function ResponsibilitySection() {
+  return (
+    <section className="responsibility-section" id="why-us" aria-labelledby="responsibility-title">
+      <div className="section-shell">
+        <div className="section-heading responsibility-heading">
+          <h2 id="responsibility-title">Ваш результат — наша зона ответственности</h2>
+          <p>Если вы хоть раз закупали кабель, вы точно сталкивались хотя бы с частью этих ситуаций.</p>
+        </div>
+
+        <div className="responsibility-grid">
+          {responsibilityItems.map((item) => (
+            <article className="responsibility-card" key={item.title}>
+              <Icon name="bolt" />
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.lead}</p>
+                <ul>
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Header() {
   return (
     <header className="site-header">
@@ -449,8 +516,9 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <TaskSection />
-      <AdvantagesSection />
       <CatalogSection />
+      <AdvantagesSection />
+      <ResponsibilitySection />
       <section className="contacts-anchor" id="contacts" aria-label="Контакты" />
     </main>
   );

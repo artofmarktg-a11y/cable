@@ -55,6 +55,7 @@ img {
 .about-section,
 .task-section,
 .advantages-section,
+.responsibility-section,
 .catalog-section {
   position: relative;
   overflow: hidden;
@@ -97,10 +98,19 @@ img {
     linear-gradient(180deg, #020712 0%, #031226 100%);
 }
 
+.responsibility-section {
+  padding: 78px 0 86px;
+  background:
+    radial-gradient(circle at 12% 34%, rgba(17, 184, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgba(13, 73, 203, 0.2), transparent 30%),
+    linear-gradient(180deg, #031226 0%, #020712 100%);
+}
+
 .hero-section::before,
 .about-section::before,
 .task-section::before,
 .advantages-section::before,
+.responsibility-section::before,
 .catalog-section::before {
   position: absolute;
   inset: 0;
@@ -333,6 +343,7 @@ svg {
 .about-card,
 .manufacturer-card,
 .advantage-card,
+.responsibility-card,
 .task-tabs-wrap {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -541,13 +552,7 @@ svg {
 }
 
 .advantages-heading {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.advantages-heading p {
-  max-width: 920px;
-  margin-inline: auto;
+  max-width: 880px;
 }
 
 .advantages-grid {
@@ -594,6 +599,65 @@ svg {
 .advantage-card strong {
   color: var(--text);
   font-weight: 800;
+}
+
+.responsibility-heading {
+  max-width: 980px;
+}
+
+.responsibility-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 30px;
+  margin-top: 58px;
+}
+
+.responsibility-card {
+  min-height: 250px;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  padding: 30px;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 196, 0, 0.08), transparent 30%),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
+    var(--panel);
+}
+
+.responsibility-card svg {
+  width: 58px;
+  height: 58px;
+  color: var(--yellow);
+  fill: var(--yellow);
+  filter:
+    drop-shadow(0 0 16px rgba(255, 196, 0, 0.22))
+    drop-shadow(0 0 12px rgba(17, 184, 255, 0.2));
+}
+
+.responsibility-card h3 {
+  margin: 0 0 14px;
+  font-size: clamp(20px, 1.3vw, 24px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.responsibility-card p {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.responsibility-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 .task-tabs-wrap {
@@ -1174,6 +1238,11 @@ svg {
     margin-top: 48px;
   }
 
+  .responsibility-grid {
+    grid-template-columns: 1fr;
+    margin-top: 44px;
+  }
+
   .advantage-card {
     min-height: 340px;
   }
@@ -1344,6 +1413,7 @@ svg {
   .about-section,
   .task-section,
   .advantages-section,
+  .responsibility-section,
   .catalog-section {
     padding: 58px 0;
   }
@@ -1417,6 +1487,23 @@ svg {
     width: 52px;
     height: 52px;
     margin-bottom: 22px;
+  }
+
+  .responsibility-grid {
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .responsibility-card {
+    min-height: 0;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 16px;
+    padding: 22px;
+  }
+
+  .responsibility-card svg {
+    width: 46px;
+    height: 46px;
   }
 
   .hero-grid {
