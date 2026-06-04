@@ -552,6 +552,14 @@ function RequestSection() {
           <p>
             Расскажите про свой проект: что нужно подключить, какие условия на объекте, какая нагрузка планируется и какие требования важны. Мы разберём задачу и подберём кабель, который действительно подходит — по характеристикам, условиям эксплуатации и бюджету.
           </p>
+          <div className="request-points" aria-label="Преимущества заявки">
+            {["Подбор по ТЗ", "Поможем с аналогами", "Ответим в течении 30 мин."].map((item) => (
+              <span key={item}>
+                <Icon name="bolt" />
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
         <form
@@ -560,6 +568,8 @@ function RequestSection() {
           method="post"
           encType="text/plain"
         >
+          <h3>Оставьте заявку</h3>
+
           <label>
             <span>Имя</span>
             <input type="text" name="Имя" autoComplete="name" required />
@@ -618,15 +628,23 @@ function ContactsSection() {
           <h2 id="contacts-title">«Металлобаза Волхонка»</h2>
 
           <div className="contact-list">
-            <a className="contact-link contact-phone" href="tel:+79218887782">
-              +7 (921) 888 77 82
+            <a className="contact-row" href="tel:+79218887782" style={{ "--contact-icon": "url('/assets/contact/tel.png')" }}>
+              <span className="contact-icon" aria-hidden="true" />
+              <span>+7 (921) 888 77 82</span>
             </a>
-            <a className="contact-link contact-mail" href="mailto:komarov.pv@metallobazav.ru">
-              komarov.pv@metallobazav.ru
+            <a className="contact-row contact-mail" href="mailto:komarov.pv@metallobazav.ru" style={{ "--contact-icon": "url('/assets/contact/mail.png')" }}>
+              <span className="contact-icon" aria-hidden="true" />
+              <span>komarov.pv@metallobazav.ru</span>
             </a>
-            <address>
-              Санкт-Петербург, ул. Зольная, д.15
-              <span>БЦ «Морская столица»</span>
+            <a className="contact-row" href="https://www.metallobazav.ru" target="_blank" rel="noreferrer" style={{ "--contact-icon": "url('/assets/contact/www.png')" }}>
+              <span className="contact-icon" aria-hidden="true" />
+              <span>www.metallobazav.ru</span>
+            </a>
+            <address className="contact-row" style={{ "--contact-icon": "url('/assets/contact/geo.png')" }}>
+              <span className="contact-icon" aria-hidden="true" />
+              <span>
+                Санкт-Петербург, ул. Зольная, д.15, БЦ «Морская столица»
+              </span>
             </address>
           </div>
 
