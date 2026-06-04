@@ -585,6 +585,16 @@ function RequestSection() {
             <textarea name="Описание задачи" rows="5" placeholder="Расскажите про ваш проект" required />
           </label>
 
+          <label>
+            <span>Загрузить документацию</span>
+            <input
+              type="file"
+              name="Документация"
+              accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar"
+              multiple
+            />
+          </label>
+
           <button className="primary-button" type="submit">
             Отправить заявку
           </button>
@@ -595,10 +605,10 @@ function RequestSection() {
 }
 
 function ContactsSection() {
-  const address = "Санкт-Петербург, ул. Зольная, д.15, БЦ Морская столица";
-  const encodedAddress = encodeURIComponent(address);
-  const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${encodedAddress}&z=16`;
-  const routeHref = `https://yandex.ru/maps/?mode=search&text=${encodedAddress}`;
+  const mapQuery = "Металлобаза Волхонка, Санкт-Петербург, ул. Зольная, д.15";
+  const encodedMapQuery = encodeURIComponent(mapQuery);
+  const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${encodedMapQuery}&z=16`;
+  const routeHref = `https://yandex.ru/maps/?mode=search&text=${encodedMapQuery}`;
 
   return (
     <section className="contacts-section" id="contacts" aria-labelledby="contacts-title">
@@ -704,7 +714,7 @@ function HeroSection() {
         </div>
 
         <aside className="hit-card" aria-label="Хит продаж">
-          <img src="assets/product-cable.jpg" alt="Кабель ВВГнг(А)-LS 3x2,5" />
+          <img src="assets/tasks/power-cable.png" alt="Кабель ВВГнг(А)-LS 3x2,5" />
           <div>
             <span>Хит продаж</span>
             <h2>Кабель ВВГнг(А)-LS 3x2,5</h2>
