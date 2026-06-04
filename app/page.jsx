@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import LeadModal from "./components/LeadModal";
+
 const navItems = [
   { href: "/catalog?type=power", label: "Силовые" },
   { href: "/catalog?type=connect", label: "Соединительные" },
@@ -374,7 +377,7 @@ function AboutSection() {
   );
 }
 
-function TaskSection() {
+function TaskSection({ onLeadRequest }) {
   return (
     <section className="task-section" id="tasks" aria-labelledby="tasks-title">
       <div className="section-shell">
@@ -411,9 +414,19 @@ function TaskSection() {
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                   <strong>{item.note}</strong>
-                  <a className="primary-button task-button" href="mailto:komarov.pv@metallobazav.ru">
+                  <button
+                    className="primary-button task-button"
+                    type="button"
+                    onClick={() =>
+                      onLeadRequest({
+                        title: "Получить консультацию",
+                        source: `Блок задач: ${item.type}`,
+                        details: `${item.title}\n${item.text}\n${item.note}`,
+                      })
+                    }
+                  >
                     Получить консультацию
-                  </a>
+                  </button>
                 </div>
                 <div className="task-image">
                   <img src={item.image} alt={`${item.type} кабель`} />
@@ -542,6 +555,49 @@ function OrderSection() {
 }
 
 function RequestSection() {
+  const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.set("name", formData.get("Имя") || "");
+    formData.set("phone", formData.get("Телефон") || "");
+    formData.set("title", "Заявка с сайта");
+    formData.set("source", "Форма в блоке заявки");
+    formData.set("details", formData.get("Описание задачи") || "");
+
+    setIsSending(true);
+    setStatus("");
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        if (result.mailto) {
+          window.location.href = result.mailto;
+          setStatus("Откроем почтовый клиент для отправки заявки.");
+          return;
+        }
+
+        setStatus("Не удалось отправить заявку. Попробуйте позже.");
+        return;
+      }
+
+      setStatus("Заявка отправлена. Менеджер свяжется с вами.");
+      form.reset();
+    } catch (error) {
+      setStatus("Не удалось отправить заявку. Попробуйте позже.");
+    } finally {
+      setIsSending(false);
+    }
+  }
+
   return (
     <section className="request-section" aria-labelledby="request-title">
       <div className="section-shell request-grid">
@@ -564,9 +620,9 @@ function RequestSection() {
 
         <form
           className="request-form"
-          action="mailto:komarov.pv@metallobazav.ru"
           method="post"
-          encType="text/plain"
+          encType="multipart/form-data"
+          onSubmit={handleSubmit}
         >
           <h3>Оставьте заявку</h3>
 
@@ -605,9 +661,11 @@ function RequestSection() {
             />
           </label>
 
-          <button className="primary-button" type="submit">
-            Отправить заявку
+          <button className="primary-button" type="submit" disabled={isSending}>
+            {isSending ? "Отправляем..." : "Отправить заявку"}
           </button>
+
+          {status && <p className="form-status">{status}</p>}
         </form>
       </div>
     </section>
@@ -615,10 +673,8 @@ function RequestSection() {
 }
 
 function ContactsSection() {
-  const mapQuery = "Металлобаза Волхонка, Санкт-Петербург, ул. Зольная, д.15";
-  const encodedMapQuery = encodeURIComponent(mapQuery);
-  const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${encodedMapQuery}&z=16`;
-  const routeHref = `https://yandex.ru/maps/?mode=search&text=${encodedMapQuery}`;
+  const yandexCompanyUrl = "https://yandex.ru/maps/org/metallobaza_volkhonka/176543501623/";
+  const mapSrc = "https://yandex.ru/map-widget/v1/?ol=biz&oid=176543501623";
 
   return (
     <section className="contacts-section" id="contacts" aria-labelledby="contacts-title">
@@ -648,8 +704,8 @@ function ContactsSection() {
             </address>
           </div>
 
-          <a className="primary-button contact-route-button" href={routeHref} target="_blank" rel="noreferrer">
-            Открыть маршрут
+          <a className="primary-button contact-route-button" href={yandexCompanyUrl} target="_blank" rel="noreferrer">
+            Открыть карточку
           </a>
         </div>
 
@@ -698,7 +754,7 @@ function Header() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ onLeadRequest }) {
   return (
     <section className="hero-section" id="top" aria-labelledby="hero-title">
       <Header />
@@ -709,10 +765,20 @@ function HeroSection() {
             Силовой кабель, контрольный, монтажный, СИП, провод и сопутствующая продукция для
             строительства, производства и энергетики.
           </p>
-          <a className="primary-button" href="#request">
+          <button
+            className="primary-button"
+            type="button"
+            onClick={() =>
+              onLeadRequest({
+                title: "Получить расчёт",
+                source: "Первый экран",
+                details: "Кнопка «Получить расчёт» на первом экране.",
+              })
+            }
+          >
             <Icon name="doc" />
             Получить расчёт
-          </a>
+          </button>
         </div>
 
         <div className="hero-media" aria-label="Кабели с разрядом тока">
@@ -749,7 +815,7 @@ function HeroSection() {
   );
 }
 
-function CatalogSection() {
+function CatalogSection({ onLeadRequest }) {
   return (
     <section className="catalog-section" id="catalog" aria-labelledby="catalog-title">
       <div className="section-shell">
@@ -795,9 +861,19 @@ function CatalogSection() {
               Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
             </p>
           </div>
-          <a className="primary-button compact" href="mailto:komarov.pv@metallobazav.ru">
+          <button
+            className="primary-button compact"
+            type="button"
+            onClick={() =>
+              onLeadRequest({
+                title: "Нет нужного кабеля",
+                source: "Блок каталог на главной",
+                details: "Посетитель не нашёл нужный кабель на сайте.",
+              })
+            }
+          >
             Нет нужного кабеля
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -805,18 +881,21 @@ function CatalogSection() {
 }
 
 export default function HomePage() {
+  const [leadModal, setLeadModal] = useState(null);
+
   return (
     <main className="site-page">
-      <HeroSection />
+      <HeroSection onLeadRequest={setLeadModal} />
       <AboutSection />
-      <TaskSection />
-      <CatalogSection />
+      <TaskSection onLeadRequest={setLeadModal} />
+      <CatalogSection onLeadRequest={setLeadModal} />
       <AdvantagesSection />
       <ResponsibilitySection />
       <AudienceSection />
       <OrderSection />
       <RequestSection />
       <ContactsSection />
+      <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>
   );
 }

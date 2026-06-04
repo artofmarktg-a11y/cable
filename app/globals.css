@@ -232,7 +232,9 @@ img {
   gap: 14px;
   padding: 0 28px;
   font-size: 18px;
+  font-family: inherit;
   isolation: isolate;
+  cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -271,6 +273,11 @@ img {
 .primary-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 18px 30px rgba(13, 73, 203, 0.36);
+}
+
+.primary-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .primary-button svg {
@@ -986,6 +993,124 @@ svg {
   font: inherit;
 }
 
+.form-status,
+.lead-modal-status {
+  margin: 0;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.lead-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow-y: auto;
+  background: rgba(1, 5, 12, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.lead-modal {
+  position: relative;
+  width: min(560px, 100%);
+  display: grid;
+  gap: 22px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 86% 12%, rgba(17, 184, 255, 0.2), transparent 36%),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    var(--panel-strong);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.62),
+    0 0 0 1px rgba(13, 73, 203, 0.42);
+}
+
+.lead-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(2, 8, 19, 0.88);
+  font: inherit;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lead-modal-copy span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.lead-modal-copy h2 {
+  max-width: calc(100% - 44px);
+  margin: 0;
+  font-family: "Arial Narrow", "Segoe UI Condensed", Arial, sans-serif;
+  font-size: clamp(34px, 3vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.lead-modal-copy p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.lead-modal-form {
+  display: grid;
+  gap: 14px;
+}
+
+.lead-modal-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.lead-modal-form span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.lead-modal-form input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(2, 8, 19, 0.86);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.lead-modal-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(17, 184, 255, 0.14);
+}
+
+.lead-modal-form .primary-button {
+  width: 100%;
+  margin-top: 4px;
+}
+
 .contacts-grid {
   display: grid;
   grid-template-columns: minmax(720px, 1.16fr) minmax(380px, 0.84fr);
@@ -1074,6 +1199,7 @@ svg {
 }
 
 .contact-map-card {
+  position: relative;
   min-height: 500px;
   padding: 8px;
   overflow: hidden;
@@ -1624,6 +1750,72 @@ svg {
   margin-top: 28px;
 }
 
+.product-order-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+  padding: 18px;
+  border: 1px solid rgba(13, 73, 203, 0.92);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 82% 14%, rgba(17, 184, 255, 0.16), transparent 34%),
+    rgba(2, 8, 19, 0.78);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(13, 73, 203, 0.35);
+}
+
+.product-order-form h3 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Arial Narrow", "Segoe UI Condensed", Arial, sans-serif;
+  font-size: clamp(26px, 2vw, 34px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.product-order-form p {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.product-order-form label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.product-order-form span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.product-order-form input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(2, 8, 19, 0.88);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.product-order-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(17, 184, 255, 0.14);
+}
+
+.product-order-form .product-consult-button {
+  width: 100%;
+  margin-top: 4px;
+}
+
 @media (max-width: 1280px) {
   .site-header {
     grid-template-columns: auto 1fr;
@@ -2041,6 +2233,19 @@ svg {
 
   .request-form h3 {
     font-size: 30px;
+  }
+
+  .lead-modal-backdrop {
+    padding: 14px;
+    align-items: start;
+  }
+
+  .lead-modal {
+    padding: 22px;
+  }
+
+  .lead-modal-copy h2 {
+    font-size: 32px;
   }
 
   .contact-card {

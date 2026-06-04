@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LeadModal from "../components/LeadModal";
 import { catalogProducts } from "./catalog-data";
 
 const navItems = [
@@ -17,6 +18,51 @@ const catalogTypeBySlug = {
   connect: "Соединительные кабели",
   "low-current": "Слаботочные кабели",
 };
+
+function formatPhoneNumber(value) {
+  const digits = value.replace(/\D/g, "").replace(/^8/, "7").slice(0, 11);
+  const normalized = digits.startsWith("7") ? digits : `7${digits}`;
+  const body = normalized.slice(1);
+  const area = body.slice(0, 3);
+  const first = body.slice(3, 6);
+  const second = body.slice(6, 8);
+  const third = body.slice(8, 10);
+  let result = "+7";
+
+  if (area) {
+    result += ` (${area}`;
+  }
+
+  if (area.length === 3) {
+    result += ")";
+  }
+
+  if (first) {
+    result += ` ${first}`;
+  }
+
+  if (second) {
+    result += `-${second}`;
+  }
+
+  if (third) {
+    result += `-${third}`;
+  }
+
+  return result;
+}
+
+function buildFallbackMailto(formData) {
+  const title = formData.get("title") || "Заказ из каталога";
+  const body = [
+    `Имя: ${formData.get("name") || ""}`,
+    `Телефон: ${formData.get("phone") || ""}`,
+    `Источник: ${formData.get("source") || ""}`,
+    `Детали: ${formData.get("details") || ""}`,
+  ].join("\n");
+
+  return `mailto:komarov.pv@metallobazav.ru?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
 
 function CatalogHeader() {
   return (
@@ -63,9 +109,71 @@ function RequestIcon() {
   );
 }
 
-function ProductModal({ product, selectedCore, selectedSection, onCoreChange, onSectionChange, onClose }) {
+function ProductModal({
+  product,
+  selectedCore,
+  selectedSection,
+  selectedMeters,
+  onCoreChange,
+  onSectionChange,
+  onMetersChange,
+  onClose,
+}) {
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    setIsOrderOpen(false);
+    setIsSending(false);
+    setStatus("");
+  }, [product?.id]);
+
   if (!product) {
     return null;
+  }
+
+  const orderDetails = [
+    `Товар: ${product.title}`,
+    `Категория: ${product.category}`,
+    `Описание: ${product.shortDescription}`,
+    `Количество жил: ${selectedCore || "не выбрано"}`,
+    `Сечение: ${selectedSection ? `${selectedSection} мм²` : "не выбрано"}`,
+    `Метраж: ${selectedMeters || "не указан"}`,
+  ].join("\n");
+
+  async function handleOrderSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.set("title", "Оформить заказ");
+    formData.set("source", "Попап карточки товара");
+    formData.set("details", orderDetails);
+
+    setIsSending(true);
+    setStatus("");
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        window.location.href = result.mailto || buildFallbackMailto(formData);
+        setStatus("Откроем почтовый клиент для отправки заказа.");
+        return;
+      }
+
+      setStatus("Заказ отправлен. Менеджер свяжется с вами.");
+      form.reset();
+    } catch (error) {
+      window.location.href = buildFallbackMailto(formData);
+      setStatus("Откроем почтовый клиент для отправки заказа.");
+    } finally {
+      setIsSending(false);
+    }
   }
 
   return (
@@ -124,7 +232,16 @@ function ProductModal({ product, selectedCore, selectedSection, onCoreChange, on
 
             <label className="meter-input">
               <span>Необходимое количество метров</span>
-              <input type="number" inputMode="numeric" min="1" max="99999" maxLength="5" placeholder="1000" />
+              <input
+                type="text"
+                inputMode="numeric"
+                value={selectedMeters}
+                maxLength="5"
+                placeholder="1000"
+                onChange={(event) => {
+                  onMetersChange(event.currentTarget.value.replace(/\D/g, "").slice(0, 5));
+                }}
+              />
             </label>
           </div>
 
@@ -134,9 +251,50 @@ function ProductModal({ product, selectedCore, selectedSection, onCoreChange, on
             ))}
           </div>
 
-          <a className="primary-button product-consult-button" href="mailto:komarov.pv@metallobazav.ru">
-            Оформить заказ
-          </a>
+          {isOrderOpen ? (
+            <form className="product-order-form" onSubmit={handleOrderSubmit}>
+              <h3>Оформить заказ</h3>
+              <p>{product.title}</p>
+
+              <input type="hidden" name="title" value="Оформить заказ" readOnly />
+              <input type="hidden" name="source" value="Попап карточки товара" readOnly />
+              <input type="hidden" name="details" value={orderDetails} readOnly />
+
+              <label>
+                <span>Имя</span>
+                <input type="text" name="name" autoComplete="name" required />
+              </label>
+
+              <label>
+                <span>Телефон</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  placeholder="+7 (___) ___-__-__"
+                  onInput={(event) => {
+                    event.currentTarget.value = formatPhoneNumber(event.currentTarget.value);
+                  }}
+                  required
+                />
+              </label>
+
+              <button className="primary-button product-consult-button" type="submit" disabled={isSending}>
+                {isSending ? "Отправляем..." : "Отправить заказ"}
+              </button>
+
+              {status && <p className="form-status">{status}</p>}
+            </form>
+          ) : (
+            <button
+              className="primary-button product-consult-button"
+              type="button"
+              onClick={() => setIsOrderOpen(true)}
+            >
+              Оформить заказ
+            </button>
+          )}
         </div>
       </section>
     </div>
@@ -147,7 +305,9 @@ export default function CatalogPage() {
   const [activeProduct, setActiveProduct] = useState(null);
   const [selectedCore, setSelectedCore] = useState("");
   const [selectedSection, setSelectedSection] = useState("");
+  const [selectedMeters, setSelectedMeters] = useState("");
   const [activeType, setActiveType] = useState(catalogTypes[0]);
+  const [leadModal, setLeadModal] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -166,6 +326,7 @@ export default function CatalogPage() {
     setActiveProduct(product);
     setSelectedCore(product.cores[0] || "");
     setSelectedSection(product.sections[0] || "");
+    setSelectedMeters("");
   }
 
   function closeProduct() {
@@ -220,9 +381,19 @@ export default function CatalogPage() {
                 Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
               </p>
             </div>
-            <a className="primary-button compact" href="mailto:komarov.pv@metallobazav.ru">
+            <button
+              className="primary-button compact"
+              type="button"
+              onClick={() =>
+                setLeadModal({
+                  title: "Нет нужного кабеля",
+                  source: "Страница каталога",
+                  details: `Активный фильтр: ${activeType}`,
+                })
+              }
+            >
               Нет нужного кабеля
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -231,10 +402,13 @@ export default function CatalogPage() {
         product={activeProduct}
         selectedCore={selectedCore}
         selectedSection={selectedSection}
+        selectedMeters={selectedMeters}
         onCoreChange={setSelectedCore}
         onSectionChange={setSelectedSection}
+        onMetersChange={setSelectedMeters}
         onClose={closeProduct}
       />
+      <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>
   );
 }
