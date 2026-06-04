@@ -68,7 +68,7 @@ img {
 
 .hero-section {
   min-height: 100svh;
-  padding: 26px 0 48px;
+  padding: 128px 0 48px;
 }
 
 .catalog-section {
@@ -164,12 +164,23 @@ img {
 }
 
 .site-header {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  z-index: 40;
   width: min(1580px, calc(100% - 64px));
-  margin: 0 auto;
+  margin: 0;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 36px;
   align-items: center;
+  padding: 12px 18px;
+  border: 1px solid rgba(13, 73, 203, 0.42);
+  border-radius: 12px;
+  background: rgba(2, 8, 19, 0.78);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
 }
 
 .logo-link img {
@@ -1442,7 +1453,12 @@ svg {
 }
 
 .catalog-site-header {
-  padding-top: 26px;
+  position: relative;
+  top: auto;
+  left: auto;
+  margin: 0 auto;
+  padding-top: 12px;
+  transform: none;
 }
 
 .catalog-page-section {
@@ -1593,8 +1609,11 @@ svg {
   display: grid;
   place-items: center;
   padding: 28px;
+  overflow-y: auto;
   background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(10px);
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .product-modal {
@@ -1612,6 +1631,9 @@ svg {
     var(--panel-strong);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .product-modal-close {
@@ -2060,7 +2082,7 @@ svg {
   }
 
   .hero-section {
-    padding-top: 20px;
+    padding-top: 104px;
   }
 
   .about-section,
@@ -2407,10 +2429,12 @@ svg {
   .product-modal-backdrop {
     padding: 14px;
     align-items: start;
+    overflow-y: auto;
   }
 
   .product-modal {
-    max-height: calc(100vh - 28px);
+    max-height: calc(100dvh - 28px);
+    overflow-y: auto;
     padding: 18px;
   }
 

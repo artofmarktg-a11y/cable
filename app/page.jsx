@@ -673,8 +673,8 @@ function RequestSection() {
 }
 
 function ContactsSection() {
-  const yandexCompanyUrl = "https://yandex.ru/maps/org/metallobaza_volkhonka/176543501623/";
-  const mapSrc = "https://yandex.ru/map-widget/v1/?ol=biz&oid=176543501623";
+  const yandexCompanyUrl = "https://yandex.ru/maps/org/metallobaza_volkhonka/65739011673/";
+  const mapSrc = "https://yandex.ru/map-widget/v1/?ol=biz&oid=65739011673";
 
   return (
     <section className="contacts-section" id="contacts" aria-labelledby="contacts-title">
@@ -757,7 +757,6 @@ function Header() {
 function HeroSection({ onLeadRequest }) {
   return (
     <section className="hero-section" id="top" aria-labelledby="hero-title">
-      <Header />
       <div className="section-shell hero-grid">
         <div className="hero-copy">
           <h1 id="hero-title">Кабельная продукция со склада и под заказ</h1>
@@ -885,6 +884,7 @@ export default function HomePage() {
 
   return (
     <main className="site-page">
+      <Header />
       <HeroSection onLeadRequest={setLeadModal} />
       <AboutSection />
       <TaskSection onLeadRequest={setLeadModal} />
