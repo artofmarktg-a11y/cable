@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import LeadModal from "./components/LeadModal";
+import QuickCallButton from "./components/QuickCallButton";
 
 const navItems = [
   { href: "/catalog?type=power", label: "Силовые" },
@@ -605,17 +606,7 @@ function RequestSection() {
           <h2 id="request-title">
             Мы не ограничиваемся каталогом и не продаем «что есть» — мы подбираем кабель под вашу задачу.
           </h2>
-          <p>
-            Расскажите про свой проект: что нужно подключить, какие условия на объекте, какая нагрузка планируется и какие требования важны. Мы разберём задачу и подберём кабель, который действительно подходит — по характеристикам, условиям эксплуатации и бюджету.
-          </p>
-          <div className="request-points" aria-label="Преимущества заявки">
-            {["Подбор по ТЗ", "Поможем с аналогами", "Ответим в течении 30 мин."].map((item) => (
-              <span key={item}>
-                <Icon name="bolt" />
-                {item}
-              </span>
-            ))}
-          </div>
+          <p>Расскажите про свой проект или отправьте тех. документацию.</p>
         </div>
 
         <form
@@ -850,28 +841,23 @@ function CatalogSection({ onLeadRequest }) {
         </div>
 
         <div className="catalog-cta" id="request">
-          <Icon name="doc" />
+          <img className="catalog-cta-icon" src="/assets/request-warning.png" alt="" aria-hidden="true" />
           <div>
             <h3>Не нашли нужный кабель?</h3>
-            <p>
-              Если вы не нашли нужный кабель на сайте - отправьте заявку и мы подберем нужную позицию по вашим параметрам.
-            </p>
-            <p>
-              Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
-            </p>
+            <p>Отправьте заявку и мы подберем нужную позицию по вашим параметрам.</p>
           </div>
           <button
             className="primary-button compact"
             type="button"
             onClick={() =>
               onLeadRequest({
-                title: "Нет нужного кабеля",
+                title: "Оставьте заявку",
                 source: "Блок каталог на главной",
                 details: "Посетитель не нашёл нужный кабель на сайте.",
               })
             }
           >
-            Нет нужного кабеля
+            Оставьте заявку
           </button>
         </div>
       </div>
@@ -895,6 +881,7 @@ export default function HomePage() {
       <OrderSection />
       <RequestSection />
       <ContactsSection />
+      <QuickCallButton />
       <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>
   );

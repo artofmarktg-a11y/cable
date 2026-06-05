@@ -238,6 +238,107 @@ img {
   white-space: nowrap;
 }
 
+.quick-call-button {
+  position: fixed;
+  right: clamp(16px, 2vw, 28px);
+  bottom: clamp(16px, 2vw, 28px);
+  z-index: 45;
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border: 1px solid var(--button-blue);
+  border-radius: 50%;
+  background: var(--button-blue);
+  color: #ffffff;
+  box-shadow:
+    0 18px 34px rgba(13, 73, 203, 0.38),
+    0 0 0 0 rgba(13, 73, 203, 0.42);
+  animation: quick-call-pulse 1.9s ease-in-out infinite;
+}
+
+.quick-call-button::before {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(13, 73, 203, 0.44);
+  border-radius: inherit;
+  content: "";
+  opacity: 0.65;
+  animation: quick-call-ring 1.9s ease-in-out infinite;
+}
+
+.quick-call-button img {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  animation: quick-call-shake 2.8s ease-in-out infinite;
+}
+
+@keyframes quick-call-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 18px 34px rgba(13, 73, 203, 0.38),
+      0 0 0 0 rgba(13, 73, 203, 0.42);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow:
+      0 22px 40px rgba(13, 73, 203, 0.48),
+      0 0 0 14px rgba(13, 73, 203, 0);
+  }
+}
+
+@keyframes quick-call-ring {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes quick-call-shake {
+  0%,
+  78%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  82% {
+    transform: rotate(-10deg);
+  }
+
+  86% {
+    transform: rotate(10deg);
+  }
+
+  90% {
+    transform: rotate(-7deg);
+  }
+
+  94% {
+    transform: rotate(7deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quick-call-button,
+  .quick-call-button::before,
+  .quick-call-button img {
+    animation: none;
+  }
+}
+
 .primary-button {
   width: fit-content;
   gap: 14px;
@@ -429,6 +530,7 @@ svg {
 
 .info-card h2 {
   margin: 18px 0 14px;
+  min-height: 47px;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.3;
@@ -1405,6 +1507,13 @@ svg {
   color: var(--yellow);
 }
 
+.catalog-cta-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(92%) saturate(1292%) hue-rotate(358deg) brightness(101%) contrast(105%);
+}
+
 .catalog-card h3,
 .catalog-cta h3 {
   margin: 0 0 12px;
@@ -1433,19 +1542,11 @@ svg {
 
 .catalog-cta > div {
   min-width: 0;
-  display: grid;
-  grid-template-columns: minmax(210px, 0.42fr) minmax(0, 1fr);
-  gap: 6px 22px;
-  align-items: center;
+  display: block;
 }
 
 .catalog-cta h3 {
-  grid-row: 1 / span 2;
-  margin: 0;
-}
-
-.catalog-cta p + p {
-  margin-top: 0;
+  margin: 0 0 8px;
 }
 
 .catalog-page {
@@ -1965,6 +2066,51 @@ svg {
 }
 
 @media (max-width: 820px) {
+  .site-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-section {
+    order: 1;
+  }
+
+  .catalog-section {
+    order: 2;
+  }
+
+  .task-section {
+    order: 3;
+  }
+
+  .advantages-section {
+    order: 4;
+  }
+
+  .responsibility-section {
+    order: 5;
+  }
+
+  .about-section {
+    order: 6;
+  }
+
+  .audience-section {
+    order: 7;
+  }
+
+  .order-section {
+    order: 8;
+  }
+
+  .request-section {
+    order: 9;
+  }
+
+  .contacts-section {
+    order: 10;
+  }
+
   .section-shell,
   .site-header {
     width: calc(100% - 32px);
@@ -1973,11 +2119,14 @@ svg {
 
   .site-header {
     grid-template-columns: 1fr auto;
-    gap: 16px;
+    gap: 10px;
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    border-radius: 10px;
   }
 
   .logo-link img {
-    width: 132px;
+    width: 108px;
   }
 
   .menu-toggle {
@@ -1989,13 +2138,13 @@ svg {
   .menu-button {
     position: relative;
     display: inline-flex;
-    width: 52px;
-    height: 52px;
+    width: 44px;
+    height: 44px;
     align-items: center;
     justify-content: center;
     align-self: center;
     border: 1px solid var(--button-blue);
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--button-blue);
     box-shadow: 0 12px 24px rgba(13, 73, 203, 0.28);
     cursor: pointer;
@@ -2016,11 +2165,11 @@ svg {
   }
 
   .menu-button::before {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
   }
 
   .menu-button::after {
-    transform: translateY(8px);
+    transform: translateY(7px);
   }
 
   .menu-toggle:checked + .menu-button span {
@@ -2039,14 +2188,14 @@ svg {
     display: none;
     grid-column: 1 / -1;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 6px;
     justify-content: stretch;
-    padding: 16px;
+    padding: 10px 12px;
     border: 1px solid var(--line);
     border-radius: 8px;
     background: var(--panel-strong);
     white-space: normal;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.25;
   }
 
@@ -2056,7 +2205,7 @@ svg {
 
   .main-nav a {
     min-width: 0;
-    padding: 10px 0;
+    padding: 7px 0;
     overflow-wrap: anywhere;
   }
 
@@ -2064,7 +2213,7 @@ svg {
     grid-column: 1 / -1;
     display: none;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
   }
 
   .menu-toggle:checked ~ .header-actions {
@@ -2073,16 +2222,17 @@ svg {
 
   .contact-pill {
     width: 100%;
-    padding: 0 18px;
+    min-height: 42px;
+    padding: 0 12px;
     min-width: 0;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     white-space: normal;
     overflow-wrap: anywhere;
   }
 
   .hero-section {
-    padding-top: 104px;
+    padding-top: 112px;
   }
 
   .about-section,
@@ -2336,7 +2486,31 @@ svg {
   }
 
   .benefit-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .info-card {
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .info-card svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .info-card h2 {
+    margin: 10px 0 6px;
+    min-height: 34px;
+    font-size: 14px;
+    line-height: 1.18;
+  }
+
+  .info-card p {
+    font-size: 11px;
+    line-height: 1.25;
   }
 
   .hit-card,
@@ -2353,17 +2527,33 @@ svg {
 
   .catalog-card > img {
     min-height: 0;
-    height: 220px;
+    height: 150px;
     object-fit: cover;
   }
 
   .catalog-card-body {
-    grid-template-columns: 56px 1fr;
+    grid-template-columns: 42px 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .catalog-card svg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .catalog-card h3 {
+    margin-bottom: 6px;
+    font-size: 19px;
+  }
+
+  .catalog-card p {
+    font-size: 13px;
+    line-height: 1.35;
   }
 
   .catalog-card-arrow {
-    grid-column: 2;
-    justify-self: end;
+    display: none;
   }
 
   .catalog-cta .primary-button {
@@ -2415,6 +2605,7 @@ svg {
   .product-card {
     min-height: 270px;
     grid-template-rows: auto 112px auto auto auto;
+    gap: 12px;
     padding: 14px;
   }
 
@@ -2424,6 +2615,19 @@ svg {
 
   .product-card strong {
     font-size: 19px;
+  }
+
+  .product-card span {
+    font-size: 13px;
+  }
+
+  .product-card em {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .product-card small {
+    font-size: 15px;
   }
 
   .product-modal-backdrop {

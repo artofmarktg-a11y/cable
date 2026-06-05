@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import LeadModal from "../components/LeadModal";
+import QuickCallButton from "../components/QuickCallButton";
 import { catalogProducts } from "./catalog-data";
 
 const navItems = [
@@ -387,28 +388,23 @@ export default function CatalogPage() {
           </div>
 
           <div className="catalog-cta" id="request">
-            <RequestIcon />
+            <img className="catalog-cta-icon" src="/assets/request-warning.png" alt="" aria-hidden="true" />
             <div>
               <h3>Не нашли нужный кабель?</h3>
-              <p>
-                Если вы не нашли нужный кабель на сайте - отправьте заявку и мы подберем нужную позицию по вашим параметрам.
-              </p>
-              <p>
-                Мы поставляем как популярные, так и позиции по индивидуальным запросам клиентов. Поможем подобрать нужное сечение, конструкцию и исполнение под ваши конкретные технические требования.
-              </p>
+              <p>Отправьте заявку и мы подберем нужную позицию по вашим параметрам.</p>
             </div>
             <button
               className="primary-button compact"
               type="button"
               onClick={() =>
                 setLeadModal({
-                  title: "Нет нужного кабеля",
+                  title: "Оставьте заявку",
                   source: "Страница каталога",
                   details: `Активный фильтр: ${activeType}`,
                 })
               }
             >
-              Нет нужного кабеля
+              Оставьте заявку
             </button>
           </div>
         </div>
@@ -424,6 +420,7 @@ export default function CatalogPage() {
         onMetersChange={setSelectedMeters}
         onClose={closeProduct}
       />
+      <QuickCallButton />
       <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>
   );
