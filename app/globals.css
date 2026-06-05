@@ -740,13 +740,14 @@ svg {
     var(--panel);
 }
 
-.advantage-card svg {
+.advantage-icon {
   width: 64px;
   height: 64px;
   margin-bottom: 34px;
-  color: var(--yellow);
-  fill: var(--yellow);
-  filter: drop-shadow(0 0 18px rgba(255, 195, 0, 0.24));
+  object-fit: contain;
+  filter:
+    brightness(0) saturate(100%) invert(75%) sepia(92%) saturate(1292%) hue-rotate(358deg) brightness(101%) contrast(105%)
+    drop-shadow(0 0 18px rgba(255, 195, 0, 0.24));
 }
 
 .advantage-card h3 {
@@ -2309,13 +2310,36 @@ svg {
 
   .advantage-card {
     min-height: 0;
-    padding: 26px 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 54px;
+    gap: 10px 14px;
+    align-items: start;
+    padding: 16px 16px 18px;
   }
 
-  .advantage-card svg {
-    width: 52px;
-    height: 52px;
-    margin-bottom: 22px;
+  .advantage-icon {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+  }
+
+  .advantage-card h3 {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+    margin: 0;
+    align-self: center;
+    font-size: 18px;
+    line-height: 1.16;
+  }
+
+  .advantage-card p {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    line-height: 1.38;
   }
 
   .responsibility-grid {
@@ -2333,6 +2357,16 @@ svg {
   .responsibility-card svg {
     width: 36px;
     height: 36px;
+  }
+
+  .responsibility-card h3 {
+    display: none;
+  }
+
+  .responsibility-card p {
+    margin: 0 0 8px;
+    font-size: 17px;
+    line-height: 1.22;
   }
 
   .audience-grid {

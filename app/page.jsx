@@ -126,6 +126,13 @@ const advantages = [
   },
 ];
 
+const advantageIcons = [
+  "/assets/advantages-delivery.svg",
+  "/assets/advantages-time.svg",
+  "/assets/advantages-supply.svg",
+  "/assets/advantages-consult.svg",
+];
+
 const responsibilityItems = [
   {
     title: "Чтобы кабель «подошел с первого раза»",
@@ -451,9 +458,9 @@ function AdvantagesSection() {
         </div>
 
         <div className="advantages-grid">
-          {advantages.map((item) => (
+          {advantages.map((item, index) => (
             <article className="advantage-card" key={item.title}>
-              <Icon name="bolt" />
+              <img className="advantage-icon" src={advantageIcons[index]} alt="" aria-hidden="true" />
               <h3>
                 {item.titleLines.map((line) => (
                   <span key={line}>{line}</span>
