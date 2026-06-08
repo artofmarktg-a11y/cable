@@ -134,22 +134,29 @@ function ProductModal({
     return null;
   }
 
-  const orderDetails = [
-    `Товар: ${product.title}`,
-    `Категория: ${product.category}`,
-    `Описание: ${product.shortDescription}`,
-    `Количество жил: ${selectedCore || "не выбрано"}`,
-    `Сечение: ${selectedSection ? `${selectedSection} мм²` : "не выбрано"}`,
-    `Метраж: ${selectedMeters || "не указан"}`,
-  ].join("\n");
+  function buildOrderDetails(meters = selectedMeters) {
+    return [
+      `Товар: ${product.title}`,
+      `Категория: ${product.category}`,
+      `Описание: ${product.shortDescription}`,
+      `Количество жил: ${selectedCore || "не выбрано"}`,
+      `Сечение: ${selectedSection ? `${selectedSection} мм²` : "не выбрано"}`,
+      `Метраж: ${meters || "не указан"}`,
+    ].join("\n");
+  }
+
+  const orderDetails = buildOrderDetails();
+  const [firstDescription, ...hiddenDescription] = product.description;
 
   async function handleOrderSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const meters = String(formData.get("meters") || "").replace(/\D/g, "").slice(0, 5);
     formData.set("title", "Оформить заказ");
     formData.set("source", "Попап карточки товара");
-    formData.set("details", orderDetails);
+    formData.set("details", buildOrderDetails(meters));
+    formData.set("Метраж", meters);
 
     setIsSending(true);
     setStatus("");
@@ -230,26 +237,6 @@ function ProductModal({
                 </select>
               </label>
             )}
-
-            <label className="meter-input">
-              <span>Необходимое количество метров</span>
-              <input
-                type="text"
-                inputMode="numeric"
-                value={selectedMeters}
-                maxLength="5"
-                placeholder="1000"
-                onChange={(event) => {
-                  onMetersChange(event.currentTarget.value.replace(/\D/g, "").slice(0, 5));
-                }}
-              />
-            </label>
-          </div>
-
-          <div className="product-description">
-            {product.description.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
           </div>
 
           {isOrderOpen ? (
@@ -281,6 +268,21 @@ function ProductModal({
                 />
               </label>
 
+              <label>
+                <span>Необходимое количество метров</span>
+                <input
+                  type="text"
+                  name="meters"
+                  inputMode="numeric"
+                  value={selectedMeters}
+                  maxLength="5"
+                  placeholder="1000"
+                  onChange={(event) => {
+                    onMetersChange(event.currentTarget.value.replace(/\D/g, "").slice(0, 5));
+                  }}
+                />
+              </label>
+
               <button className="primary-button product-consult-button" type="submit" disabled={isSending}>
                 {isSending ? "Отправляем..." : "Отправить заказ"}
               </button>
@@ -296,6 +298,20 @@ function ProductModal({
               Оформить заказ
             </button>
           )}
+
+          <div className="product-description">
+            {firstDescription && <p>{firstDescription}</p>}
+            {hiddenDescription.length > 0 && (
+              <details className="product-read-more">
+                <summary>Читать далее</summary>
+                <div>
+                  {hiddenDescription.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
         </div>
       </section>
     </div>
