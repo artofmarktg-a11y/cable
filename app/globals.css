@@ -741,13 +741,14 @@ svg {
 }
 
 .advantage-icon {
+  display: block;
   width: 64px;
   height: 64px;
   margin-bottom: 34px;
-  object-fit: contain;
-  filter:
-    brightness(0) saturate(100%) invert(75%) sepia(92%) saturate(1292%) hue-rotate(358deg) brightness(101%) contrast(105%)
-    drop-shadow(0 0 18px rgba(255, 195, 0, 0.24));
+  background: var(--yellow);
+  mask: var(--advantage-icon) center / contain no-repeat;
+  -webkit-mask: var(--advantage-icon) center / contain no-repeat;
+  filter: drop-shadow(0 0 18px rgba(255, 196, 0, 0.24));
 }
 
 .advantage-card h3 {
@@ -1644,7 +1645,7 @@ svg {
   min-width: 0;
   min-height: 310px;
   display: grid;
-  grid-template-rows: auto 132px auto auto auto;
+  grid-template-rows: 132px auto auto auto;
   gap: 12px;
   padding: 16px;
   border: 1px solid var(--line);
@@ -1667,12 +1668,6 @@ svg {
   transform: translateY(-4px);
   border-color: var(--blue);
   box-shadow: 0 26px 52px rgba(13, 73, 203, 0.28);
-}
-
-.product-card span {
-  color: var(--blue);
-  font-size: 13px;
-  font-weight: 800;
 }
 
 .product-card img {
@@ -1871,34 +1866,15 @@ svg {
 }
 
 .product-read-more {
-  display: grid;
-  gap: 12px;
-}
-
-.product-read-more summary {
   width: fit-content;
+  padding: 0;
+  border: 0;
   color: var(--blue);
+  background: transparent;
+  font: inherit;
   font-size: 15px;
   font-weight: 800;
   cursor: pointer;
-  list-style: none;
-}
-
-.product-read-more summary::-webkit-details-marker {
-  display: none;
-}
-
-.product-read-more summary::after {
-  content: " ↓";
-}
-
-.product-read-more[open] summary::after {
-  content: " ↑";
-}
-
-.product-read-more > div {
-  display: grid;
-  gap: 14px;
 }
 
 .product-consult-button {
@@ -2669,7 +2645,7 @@ svg {
 
   .product-card {
     min-height: 270px;
-    grid-template-rows: auto 112px auto auto auto;
+    grid-template-rows: 112px auto auto auto;
     gap: 12px;
     padding: 14px;
   }
@@ -2680,10 +2656,6 @@ svg {
 
   .product-card strong {
     font-size: 19px;
-  }
-
-  .product-card span {
-    font-size: 13px;
   }
 
   .product-card em {

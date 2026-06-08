@@ -121,11 +121,13 @@ function ProductModal({
   onClose,
 }) {
   const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
     setIsOrderOpen(false);
+    setIsDescriptionOpen(false);
     setIsSending(false);
     setStatus("");
   }, [product?.id]);
@@ -301,15 +303,16 @@ function ProductModal({
 
           <div className="product-description">
             {firstDescription && <p>{firstDescription}</p>}
+            {isDescriptionOpen &&
+              hiddenDescription.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             {hiddenDescription.length > 0 && (
-              <details className="product-read-more">
-                <summary>Читать далее</summary>
-                <div>
-                  {hiddenDescription.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-              </details>
+              <button
+                className="product-read-more"
+                type="button"
+                onClick={() => setIsDescriptionOpen((current) => !current)}
+              >
+                {isDescriptionOpen ? "Свернуть" : "Читать далее"}
+              </button>
             )}
           </div>
         </div>
@@ -394,7 +397,6 @@ export default function CatalogPage() {
           <div className="catalog-products-grid">
             {filteredProducts.map((product) => (
               <button className="product-card" type="button" key={product.id} onClick={() => openProduct(product)}>
-                <span>{product.category}</span>
                 <img src={product.photo} alt={product.title} />
                 <strong>{product.title}</strong>
                 <em>{product.shortDescription}</em>

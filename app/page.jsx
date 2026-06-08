@@ -460,7 +460,11 @@ function AdvantagesSection() {
         <div className="advantages-grid">
           {advantages.map((item, index) => (
             <article className="advantage-card" key={item.title}>
-              <img className="advantage-icon" src={advantageIcons[index]} alt="" aria-hidden="true" />
+              <span
+                className="advantage-icon"
+                style={{ "--advantage-icon": `url("${advantageIcons[index]}")` }}
+                aria-hidden="true"
+              />
               <h3>
                 {item.titleLines.map((line) => (
                   <span key={line}>{line}</span>
