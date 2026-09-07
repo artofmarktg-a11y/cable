@@ -3,7 +3,7 @@ export default function SiteFooter() {
     <footer className="site-footer">
       <div className="section-shell site-footer-inner">
         <span>Металлобаза Волхонка</span>
-        <a href="/politika">Политика обработки персональных данных</a>
+        <a href="/politika" target="_blank" rel="noreferrer">Политика обработки персональных данных</a>
       </div>
     </footer>
   );

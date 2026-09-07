@@ -672,7 +672,7 @@ function RequestSection() {
             <input type="checkbox" name="Согласие на обработку персональных данных" required />
             <span>
               Я согласен на обработку персональных данных и ознакомлен с{" "}
-              <a href="/politika">политикой обработки персональных данных</a>
+              <a href="/politika" target="_blank" rel="noreferrer">политикой обработки персональных данных</a>
             </span>
           </label>
 
