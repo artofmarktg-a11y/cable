@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import LeadModal from "../components/LeadModal";
 import QuickCallButton from "../components/QuickCallButton";
+import SiteFooter from "../components/SiteFooter";
 import { catalogProducts } from "./catalog-data";
 
 const navItems = [
@@ -289,6 +290,14 @@ function ProductModal({
                 {isSending ? "Отправляем..." : "Отправить заказ"}
               </button>
 
+              <label className="privacy-consent">
+                <input type="checkbox" name="Согласие на обработку персональных данных" required />
+                <span>
+                  Я согласен на обработку персональных данных и ознакомлен с{" "}
+                  <a href="/politika">политикой обработки персональных данных</a>
+                </span>
+              </label>
+
               {status && <p className="form-status">{status}</p>}
             </form>
           ) : (
@@ -438,6 +447,7 @@ export default function CatalogPage() {
         onMetersChange={setSelectedMeters}
         onClose={closeProduct}
       />
+      <SiteFooter />
       <QuickCallButton />
       <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>

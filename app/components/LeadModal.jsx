@@ -141,6 +141,14 @@ export default function LeadModal({ lead, onClose }) {
             {isSending ? "Отправляем..." : "Отправить заявку"}
           </button>
 
+          <label className="privacy-consent">
+            <input type="checkbox" name="Согласие на обработку персональных данных" required />
+            <span>
+              Я согласен на обработку персональных данных и ознакомлен с{" "}
+              <a href="/politika">политикой обработки персональных данных</a>
+            </span>
+          </label>
+
           {status && <p className="lead-modal-status">{status}</p>}
         </form>
       </section>

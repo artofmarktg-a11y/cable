@@ -3,6 +3,7 @@
 import { useState } from "react";
 import LeadModal from "./components/LeadModal";
 import QuickCallButton from "./components/QuickCallButton";
+import SiteFooter from "./components/SiteFooter";
 
 const navItems = [
   { href: "/catalog?type=power", label: "Силовые" },
@@ -667,6 +668,14 @@ function RequestSection() {
             {isSending ? "Отправляем..." : "Отправить заявку"}
           </button>
 
+          <label className="privacy-consent">
+            <input type="checkbox" name="Согласие на обработку персональных данных" required />
+            <span>
+              Я согласен на обработку персональных данных и ознакомлен с{" "}
+              <a href="/politika">политикой обработки персональных данных</a>
+            </span>
+          </label>
+
           {status && <p className="form-status">{status}</p>}
         </form>
       </div>
@@ -892,6 +901,7 @@ export default function HomePage() {
       <OrderSection />
       <RequestSection />
       <ContactsSection />
+      <SiteFooter />
       <QuickCallButton />
       <LeadModal lead={leadModal} onClose={() => setLeadModal(null)} />
     </main>
